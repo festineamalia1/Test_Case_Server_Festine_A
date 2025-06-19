@@ -29,7 +29,7 @@ module.exports = {
     pool.getConnection(function (err, connection) {
       if (err) throw err;
       connection.query(
-        `SELECT * FROM shipment_log_status WHERE id_log_status = ?;`,
+        `SELECT * FROM shipment_log_status WHERE id_shipment = ?;`,
         [id],
         function (error, results) {
           if (error) throw error;
