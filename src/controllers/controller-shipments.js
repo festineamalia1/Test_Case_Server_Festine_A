@@ -13,7 +13,9 @@ module.exports = {
   getDataShipments(req, res) {
     pool.getConnection(function (err, connection) {
       if (err) throw err;
-      connection.query(`SELECT * FROM shipments;`, function (error, results) {
+      connection.query(`SELECT transporter.nama, transporter.phone, vehicle.plat,vehicle.jenis_kendaraan, shipments.loc_asal, shipments.loc_tujuan, shipments.create_time,  shipment_log_status.status, shipments.id_shipment FROM shipments 
+ JOIN transporter ON transporter.id_transporter = shipments.id_transporter  
+JOIN vehicle ON vehicle.id_vehicle = shipments.id_vehicle JOIN shipment_log_status ON shipment_log_status.id_shipment = shipments.id_shipment;`, function (error, results) {
         if (error) throw error;
         res.send({
           success: true,
@@ -29,7 +31,9 @@ module.exports = {
     pool.getConnection(function (err, connection) {
       if (err) throw err;
       connection.query(
-        `SELECT * FROM shipments WHERE id_shipment = ?;`,
+        `SELECT transporter.nama, transporter.phone, vehicle.plat,vehicle.jenis_kendaraan, shipments.loc_asal, shipments.loc_tujuan, shipments.create_time,  shipment_log_status.status, shipments.id_shipment FROM shipments 
+ JOIN transporter ON transporter.id_transporter = shipments.id_transporter  
+JOIN vehicle ON vehicle.id_vehicle = shipments.id_vehicle JOIN shipment_log_status ON shipment_log_status.id_shipment = shipments.id_shipment WHERE shipments.id_shipment = ?;`,
         [id],
         function (error, results) {
           if (error) throw error;
