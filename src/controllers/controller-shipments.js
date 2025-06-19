@@ -129,7 +129,9 @@ JOIN vehicle ON vehicle.id_vehicle = shipments.id_vehicle JOIN shipment_log_stat
     pool.getConnection(function (err, connection) {
       if (err) throw err;
       connection.query(
-        `SELECT * FROM shipments WHERE id_transporter LIKE ?;`,
+        `SELECT transporter.id_transporter, transporter.nama, transporter.phone, vehicle.id_vehicle,vehicle.plat,vehicle.jenis_kendaraan, shipments.loc_asal, shipments.loc_tujuan, shipments.create_time,  shipment_log_status.status, shipments.id_shipment FROM shipments 
+ JOIN transporter ON transporter.id_transporter = shipments.id_transporter  
+JOIN vehicle ON vehicle.id_vehicle = shipments.id_vehicle JOIN shipment_log_status ON shipment_log_status.id_shipment = shipments.id_shipment WHERE transporter.id_transporter LIKE ?;`,
         [`%${id}%`],
 
         function (error, results) {
