@@ -1,6 +1,3 @@
-# Festine Amalia tes 04/08/2023 Server
-
-
 ## Available Scripts
 
 In the project directory, you can install:
